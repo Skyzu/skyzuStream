@@ -59,8 +59,7 @@ HELP_STOP = """**[HELP MESSAGE]**
 """
 
 BOKEP = "https://telegra.ph/file/bb460f682dd16b4649c26.mp4"
-START_MESSAGE = """ **Nanti Nangis**
-"""
+START_MESSAGE = """**Command help with description**"""
 
 
 @Client.on_callback_query(filters.regex(pattern=r"^(play|pause|resume|stop)$"))
@@ -96,4 +95,14 @@ async def help(client, message):
 
 @Client.on_message(filters.command("start"))
 async def start(client, message):
-    await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=marr)
+    coli = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("PLAY HELP", "play"),
+                InlineKeyboardButton("PAUSE HELP", "pause"),
+                InlineKeyboardButton("RESUME HELP", "resume"),
+            ],
+            [InlineKeyboardButton("STOP HELP", "stop")],
+        ]
+    )
+    await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=coli)
