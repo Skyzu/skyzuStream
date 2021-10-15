@@ -57,7 +57,8 @@ HELP_STOP = """**[HELP MESSAGE]**
 
 **>> Note:** ```Replace chat title to stop channel stream```
 """
-VIDEO = "https://telegra.ph/file/bb460f682dd16b4649c26.mp4"
+
+BOKEP = "https://telegra.ph/file/bb460f682dd16b4649c26.mp4"
 START_MESSAGE = """ **Nanti Nangis**
 """
 
@@ -95,4 +96,4 @@ async def help(client, message):
 
 @Client.on_message(filters.command("start"))
 async def start(client, message):
-    await client.send.video(VIDEO, caption=START_MESSAGE, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("OWNER", url=f"https://t.me/xflicks")]]))
+    await client.send.video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=InlineKeyboardMarkup([InlineKeyboardButton("OWNER", url=f"https://t.me/xflicks")]))
