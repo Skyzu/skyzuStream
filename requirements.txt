@@ -4,6 +4,7 @@ pafy
 py-tgcalls==0.8.1rc1
 TgCrypto
 yt-dlp
+youtube-dl
 wget
 youtube_search
 youtube_search_python
