@@ -95,16 +95,4 @@ async def help(client, message):
 
 @Client.on_message(filters.command("start"))
 async def start(client, message):
-    await client.reply_video(VIDEO, caption=START_MESSAGE, reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        "OWNER", url=f"https://t.me/xflicks"
-                    ),
-                    InlineKeyboardButton(
-                        "SUPPORT", url=f"https://t.me/AnosSupport"
-                    )
-                ]
-            ]
-        )
-    )
+    await client.reply_video(VIDEO, caption=START_MESSAGE, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("OWNER", url=f"https://t.me/xflicks")]]))
