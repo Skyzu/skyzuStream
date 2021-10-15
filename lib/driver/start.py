@@ -100,9 +100,10 @@ async def start(client, message):
             [
                 InlineKeyboardButton("PLAY HELP", "play"),
                 InlineKeyboardButton("PAUSE HELP", "pause"),
-                InlineKeyboardButton("RESUME HELP", "resume"),
             ],
-            [InlineKeyboardButton("STOP HELP", "stop")],
+            [ 
+               InlineKeyboardButton("RESUME HELP", "resume"),
+               InlineKeyboardButton("STOP HELP", "stop")],
         ]
     )
     await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=coli)
