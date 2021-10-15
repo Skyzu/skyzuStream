@@ -5,7 +5,6 @@ py-tgcalls==0.8.1rc1
 TgCrypto
 yt-dlp
 wget
-youtube-dl
 youtube_search
 youtube_search_python
 requests
