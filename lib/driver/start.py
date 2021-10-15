@@ -96,4 +96,4 @@ async def help(client, message):
 
 @Client.on_message(filters.command("start"))
 async def start(client, message):
-    await client.send.video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=InlineKeyboardMarkup([InlineKeyboardButton("OWNER", url=f"https://t.me/xflicks")]))
+    await client.send_video(message.chat.id, BOKEP)
