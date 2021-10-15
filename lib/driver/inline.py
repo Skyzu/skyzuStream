@@ -28,7 +28,7 @@ async def inline(client: Client, query: InlineQuery):
         await client.answer_inline_query(
             query.id,
             results=answers,
-            switch_pm_text="Type...",
+            switch_pm_text="Ketik Judul Video Yang Anda Cari...",
             switch_pm_parameter="help",
             cache_time=0,
         )
@@ -43,7 +43,7 @@ async def inline(client: Client, query: InlineQuery):
                         result["duration"], result["viewCount"]["short"]
                     ),
                     input_message_content=InputTextMessageContent(
-                        "https://www.youtube.com/watch?v={}".format(
+                        "/play https://www.youtube.com/watch?v={}".format(
                             result["id"])
                     ),
                     thumb_url=result["thumbnails"][0]["url"],
