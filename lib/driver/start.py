@@ -13,11 +13,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>
 '''
 
-from pyrogram.types import Message
-from pyrogram.types import InlineKeyboardMarkup
-from pyrogram.types import InlineKeyboardButton
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram import Client, filters
-
 from lib.config import USERNAME_BOT
 
 
@@ -60,8 +57,8 @@ HELP_STOP = """**[HELP MESSAGE]**
 
 **>> Note:** ```Replace chat title to stop channel stream```
 """
-
-START_MESSAGE = """ **I'M ALIVE**
+VIDEO = "https://telegra.ph/file/bb460f682dd16b4649c26.mp4"
+START_MESSAGE = """ **Nanti Nangis**
 """
 
 
@@ -98,4 +95,16 @@ async def help(client, message):
 
 @Client.on_message(filters.command("start"))
 async def start(client, message):
-    await message.reply(START_MESSAGE)
+    await client.send_video(VIDEO, caption=START_MESSAGE, reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "OWNER", url=f"https://t.me/xflicks"
+                    ),
+                    InlineKeyboardButton(
+                        "SUPPORT", url=f"https://t.me/AnosSupport"
+                    )
+                ]
+            ]
+        )
+    )
