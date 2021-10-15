@@ -29,7 +29,7 @@ HELP_PLAY = """**[HELP MESSAGE]**
 """
 
 HELP_PAUSE = """**[HELP MESSAGE]**
-**>> Description:** ```To pause stream in video chat grouo/channel```
+**>> Description:** ```To pause stream in video chat group/channel```
 
 **[GUIDE]**
 **>> Group:** ```/pause```
@@ -73,24 +73,6 @@ async def callback(b, cb):
         await cb.message.edit(HELP_RESUME)
     elif help_type == "stop":
         await cb.message.edit(HELP_STOP)
-
-
-@Client.on_message(filters.command("help"))
-async def help(client, message):
-    marr = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("PLAY HELP", "play"),
-                InlineKeyboardButton("PAUSE HELP", "pause"),
-                InlineKeyboardButton("RESUME HELP", "resume"),
-            ],
-            [InlineKeyboardButton("STOP HELP", "stop")],
-        ]
-    )
-    await message.reply(
-        "**Command help with description**",
-        reply_markup=marr
-    )
 
 
 @Client.on_message(filters.command("start"))
