@@ -17,7 +17,7 @@ ydl_opts = {
 }
 
 
-@Client.on_message(filters.command("video"))
+@Client.on_message(filters.command(["vsong", "video"]))
 async def video(client, message):
     query = " ".join(message.command[1:])
     try:
@@ -54,7 +54,7 @@ async def video(client, message):
         print(e)
 
 
-@Client.on_message(filters.command("music"))
+@Client.on_message(filters.command(["music", "song"]))
 async def music(client, message):
     input = " ".join(message.command[1:])
     msg = await message.reply("```Downloading...```")
