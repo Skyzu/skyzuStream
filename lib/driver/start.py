@@ -96,4 +96,4 @@ async def help(client, message):
 
 @Client.on_message(filters.command("start"))
 async def start(client, message):
-    await client.send_video(message.chat.id, BOKEP)
+    await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=marr)
