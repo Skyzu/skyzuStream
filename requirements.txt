@@ -1,5 +1,5 @@
 ffmpeg-python
-git+https://github.com/pyrogram/pyrogram@master
+pyrogram
 pafy
 py-tgcalls==0.8.1rc1
 TgCrypto
