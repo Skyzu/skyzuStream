@@ -1,40 +1,47 @@
 import asyncio
+import pafy
 
 from pyrogram import Client, filters
-from lib.tg_stream import call_py
 from youtube_search import YoutubeSearch
+from lib.tg_stream import call_py
+from lib.helpers.filters import private_filters, public_filters
 
 from pytgcalls import idle
 from pytgcalls import StreamType
 from pytgcalls.types.input_stream import AudioVideoPiped
+from pytgcalls.types.input_stream import AudioImagePiped
 from pytgcalls.types.input_stream.quality import MediumQualityAudio
 from pytgcalls.types.input_stream.quality import MediumQualityVideo
 
 
-
-async def get_youtube_stream(input: str):
-    proc = await asyncio.create_subprocess_exec(
-        'yt-dlp',
-        '-g',
-        '-f',
-        # CHANGE THIS BASED ON WHAT YOU WANT
-        'best[height<=?480][width<=?854]',
-        f"https://youtube.com{YoutubeSearch(input, 1).to_dict()[0]['url_suffix']}",
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    stdout, stderr = await proc.communicate()
-    return stdout.decode().split('\n')[0]
-
-@Client.on_message(filters.command("play"))
+@Client.on_message(filters.command("play") & public_filters)
 async def play_video(client, message):
+    flags = " ".join(message.command[1:])
     replied = message.reply_to_message
+    text = message.text.split(None, 2)[1:]
+    user = message.from_user.mention
+    try:
+        if text[0] == "channel":
+            chat_id = int(message.chat.title)
+            try:
+                input = text[1]
+            except Exception:
+                pass
+        else:
+            chat_id = message.chat.id
+            input = text[0]
+    except Exception:
+        pass
     if not replied:
-        msg = await message.reply("```Processing...```")
-        chat_id = message.chat.id
-        input = " ".join(message.command[1:])
-        file = await get_youtube_stream(input)
-        await msg.edit("```Streamed```")
+        try:
+            msg = await message.reply("```Processing...```")
+            video = pafy.new(input)
+            file = video.getbest().url
+            title = video.title
+        except Exception as e:
+            await msg.edit(f"**Error:** {e}")
+            return False
+        await msg.edit(f"**Streamed by: {user}**\n**Title:** ```{title}```")
         await call_py.join_group_call(
             chat_id,
             AudioVideoPiped(
@@ -45,10 +52,11 @@ async def play_video(client, message):
             stream_type=StreamType().live_stream
         )
     elif replied.video or replied.document:
+        flags = " ".join(message.command[1:])
+        chat_id = int(message.chat.title) if flags == "channel" else message.chat.id
         msg = await message.reply("```Downloading from telegram...```")
-        chat_id = message.chat.id
         file = await client.download_media(replied)
-        await msg.edit("```Streamed```")
+        await msg.edit(f"**Streamed by: {user}**")
         await call_py.join_group_call(
             chat_id,
             AudioVideoPiped(
@@ -58,6 +66,29 @@ async def play_video(client, message):
             ),
             stream_type=StreamType().live_stream
         )
+    elif replied.audio:
+        flags = " ".join(message.command[1:])
+        if flags == "channel":
+            chat_id = message.chat.title
+        else:
+            chat_id = message.chat.id
+        msg = await message.reply("```Downloading from telegram...```")
+        input_file = await client.download_media(replied)
+        await msg.edit(f"**Streamed by: {user}**")
+        await call_py.join_group_call(
+            chat_id,
+            AudioImagePiped(
+                input_file,
+                './etc/banner.png',
+                video_parameters=MediumQualityVideo(),
+            ),
+            stream_type=StreamType().pulse_stream,
+        )
     else:
         await message.reply("```Please reply to video or video file to stream```")
 
+
+@call_py.on_stream_end()
+async def end(cl, update):
+    print("stream ended in " + str(update.chat_id))
+    await call_py.leave_group_call(update.chat_id)

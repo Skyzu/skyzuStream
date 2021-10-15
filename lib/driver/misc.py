@@ -17,7 +17,7 @@ from datetime import datetime
 from pyrogram.types import Message
 from pyrogram import Client, filters
 from lib.tg_stream import call_py
-from lib.config import USERNAME_BOT
+from lib.config import USERNAME_BOT, SUDO_USERS
 from pytgcalls.exceptions import GroupCallNotFound
 
 
@@ -29,61 +29,62 @@ async def ping_(client: Client, message: Message):
     latency = (end - start).microseconds / 1000
     await msg.edit(f"**Latency:** `{latency} ms`")
 
+
 @Client.on_message(filters.command(["repo", "repo@{USERNAME_BOT}"]))
 async def repo(client, message):
-    repo = "https://github.com/Imszy17/tg-stream-video"
-    await message.reply(f"**Source code:** [Here]({repo})")
+    repo = "https://xnxx.com"
+    license = "https://t.me/AnosSupport"
+    await message.reply(f"**Source code:** [Here]({repo})\n**SUPPORT:** [JOIN SUPPORT]({license})")
+
 
 @Client.on_message(filters.command("pause"))
 async def pause(client, message):
-    chat_id = message.chat.id
-    channel_id = message.chat.title
     query = " ".join(message.command[1:])
     if query == "channel":
-         try:
-             await call_py.pause_stream(int(channel_id))
-             await message.reply("**Channel Stream Paused!**")
-         except GroupCallNotFound:
-             await message.reply(f"**Error:** GroupCall not found!")
+        chat_id = int(message.chat.title)
+        type = "Channel"
     else:
-         try:
-             await call_py.pause_stream(chat_id)
-             await message.reply("**Paused!**")
-         except GroupCallNotFound:
-             await message.reply(f"**Error:** GroupCall not found!")
+        chat_id = message.chat.id
+        type = "Group"
+    try:
+        await call_py.pause_stream(chat_id)
+        await message.reply(f"**{type} stream paused!**")
+    except GroupCallNotFound:
+        await message.reply('**Error:** GroupCall not found!')
+
 
 @Client.on_message(filters.command("resume"))
 async def resume(client, message):
-    chat_id = message.chat.id
-    channel_id = message.chat.title
     query = " ".join(message.command[1:])
     if query == "channel":
-         try:
-             await call_py.resume_stream(int(channel_id))
-             await message.reply("**Resume channel stream!**")
-         except GroupCallNotFound:
-             await message.reply("**Error:** GroupCall not found!")
+        chat_id = int(message.chat.title)
+        type = "Channel"
     else:
-         try:
-             await call_py.resume_stream(chat_id)
-             await message.reply("**Resume!**")
-         except GroupCallNotFound:
-             await message.reply("**Error:** GroupCall not found!")
+        chat_id = message.chat.id
+        type = "Group"
+    try:
+        await call_py.resume_stream(chat_id)
+        await message.reply(f"**{type} stream resumed!**")
+    except GroupCallNotFound:
+        await message.reply("**Error:** GroupCall not found!")
+
 
 @Client.on_message(filters.command("stop"))
 async def stopped(client, message):
-    chat_id = message.chat.id
-    channel_id = message.chat.title
     query = " ".join(message.command[1:])
-    if query == "channel":
-         try:
-             await call_py.leave_group_call(int(channel_id))
-             await message.reply("**Channel stream stopped!**")
-         except GroupCallNotFound:
-             await message.reply("**Error:** GroupCall not found")
+    user_id = message.from_user.id
+    if user_id != SUDO_USERS:
+        await message.reply("**Warning:** Only sudo user can be stopped stream")
+        return False
     else:
-         try:
-             await call_py.leave_group_call(chat_id)
-             await message.reply("**Stopped!**")
-         except GroupCallNotFound:
-             await message.reply("**Error:** GroupCall not found")
+        if query == "channel":
+            chat_id = int(message.chat.title)
+            type = "Channel"
+        else:
+            chat_id = message.chat.id
+            type = "Group"
+        try:
+            await call_py.leave_group_call(chat_id)
+            await message.reply(f"**{type} stream stopped!**")
+        except GroupCallNotFound:
+            await message.reply("**Error:** GroupCall not found")
