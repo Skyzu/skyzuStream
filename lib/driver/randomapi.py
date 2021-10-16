@@ -4,11 +4,11 @@ from lib.config import USERNAME_BOT
 
 
 @Client.on_message(filters.command(["pat", f"pat@{USERNAME_BOT}"]))
-def pat(_,message):
-    reply = message.reply_to_message
+def pat(client, message):
+    try:
     if reply:
         res = requests.get('https://some-random-api.ml/animu/pat').json()
-        url = res['link']
+        url = f"{resp['link']}"
         return await client.send_video(message.chat.id, video=url)
     except Exception:
         await message.reply_text("`404 pats not found:v`")
