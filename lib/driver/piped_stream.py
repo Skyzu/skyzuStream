@@ -1,17 +1,12 @@
 import asyncio
 import pafy
-
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch
 from lib.tg_stream import call_py
 from lib.helpers.filters import private_filters, public_filters
-
-from pytgcalls import idle
-from pytgcalls import StreamType
-from pytgcalls.types.input_stream import AudioVideoPiped
-from pytgcalls.types.input_stream import AudioImagePiped
-from pytgcalls.types.input_stream.quality import MediumQualityAudio
-from pytgcalls.types.input_stream.quality import MediumQualityVideo
+from pytgcalls import StreamType, idle
+from pytgcalls.types.input_stream import AudioImagePiped, AudioVideoPiped
+from pytgcalls.types.input_stream.quality import MediumQualityVideo, MediumQualityAudio
 
 
 @Client.on_message(filters.command("play") & public_filters)
