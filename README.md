@@ -15,7 +15,7 @@ $ python -m lib
 
 # Credit
 - [Feri Eka](https://github.com/feriexp) Developer
-- [GalihMrd](https://github.com/galihmrd) Developer
+- [GalihMrd](https://github.com/galihmrd) for [Source](https://github.com/galihmrd/Group-calls-video)
 - [Laky-64](https://github.com/Laky-64) for [pytgcalls](https://github.com/pytgcalls/pytgcalls)
 - [Dan](https://github.com/delivrance) for [Pyrogram](https://github.com/pyrogram/pyrogram)
 
