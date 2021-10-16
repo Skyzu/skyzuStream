@@ -3,16 +3,6 @@ from pyrogram import Client, filters
 from lib.config import USERNAME_BOT
 
 
-@Client.on_message(filters.command(["pat", f"pat@{USERNAME_BOT}"]))
-def pat(client, message):
-    try:
-        res = requests.get('https://some-random-api.ml/animu/pat').json()
-        url = f"{resp['link']}"
-        return await client.send_video(message.chat.id, video=url)
-    except Exception:
-        await message.reply_text("`404 pats not found:v`")
-
-
 @Client.on_message(filters.command(["asupan", f"asupan@{USERNAME_BOT}"]))
 async def asupan(client, message):
     try:
