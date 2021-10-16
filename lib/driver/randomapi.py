@@ -9,9 +9,9 @@ def pat(_,message):
     if reply:
         res = requests.get('https://some-random-api.ml/animu/pat').json()
         url = res['link']
-        reply.reply_animation(url)
-    else:
-        message.reply_animation(url)
+        return await client.send_video(message.chat.id, video=url)
+    except Exception:
+        await message.reply_text("`404 pats not found:v`")
 
 
 @Client.on_message(filters.command(["asupan", f"asupan@{USERNAME_BOT}"]))
