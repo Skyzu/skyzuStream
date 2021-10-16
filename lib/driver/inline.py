@@ -14,8 +14,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 '''
 
 from pyrogram import Client, errors
-from pyrogram.types import (InlineQuery, InlineQueryResultArticle,
-                            InputTextMessageContent)
+from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 from youtubesearchpython import VideosSearch
 
 
@@ -43,7 +42,7 @@ async def inline(client: Client, query: InlineQuery):
                         result["duration"], result["viewCount"]["short"]
                     ),
                     input_message_content=InputTextMessageContent(
-                        "/play https://www.youtube.com/watch?v={}".format(
+                        "https://www.youtube.com/watch?v={}".format(
                             result["id"])
                     ),
                     thumb_url=result["thumbnails"][0]["url"],
