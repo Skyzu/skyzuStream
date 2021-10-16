@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from lib.config import USERNAME_BOT
 
 
-@Client.on_message(filters.command(["pat", f"pat@{USERNAME_BOT}]))
+@Client.on_message(filters.command(["pat", f"pat@{USERNAME_BOT}"]))
 def pat(_,message):
     reply = message.reply_to_message
     if reply:
