@@ -159,7 +159,7 @@ async def telegraph(client, message):
 # ====== TELEGRAPH ======
 
 
-@Client.on_message(command(["whois", "info"]))
+@Client.on_message(filters.command(["whois", "info"]))
 async def who_is(client, message):
     """ extract user information """
     status_message = await message.reply_text("`Getting Information....`")
