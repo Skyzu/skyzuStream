@@ -3,8 +3,8 @@
 ![logo](https://telegra.ph/file/824cba85b5b820fcd7dcd.jpg)
 ## Deploy
 ```
-$ git clone https://github.com/Imszy17/tg-stream-video
-$ cd tg-stream-video
+$ git clone https://github.com/FeriEXP/VideoStream
+$ cd VideoStream
 $ pip install -r requirements.txt
 $ python -m lib
 ```
