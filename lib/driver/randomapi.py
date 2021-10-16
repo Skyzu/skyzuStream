@@ -6,7 +6,6 @@ from lib.config import USERNAME_BOT
 @Client.on_message(filters.command(["pat", f"pat@{USERNAME_BOT}"]))
 def pat(client, message):
     try:
-    if reply:
         res = requests.get('https://some-random-api.ml/animu/pat').json()
         url = f"{resp['link']}"
         return await client.send_video(message.chat.id, video=url)
