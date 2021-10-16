@@ -1,6 +1,5 @@
 {
     "name": "VideoStream",
-    "logo": "https://telegra.ph/file/21ec54e1df5f0c4589215.jpg",
     "description": "VideoStream allow you to stream music trought the telegram voice chat feature.",
     "keywords": ["music", "voice chat", "telegram", "video", "stream"],
     "repository": "https://github.com/FeriEXP/VideoStream",
