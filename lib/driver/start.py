@@ -84,13 +84,11 @@ async def start_(client: Client, message: Message):
 		❔ **To know how to use me click** /help</b>""",
 		reply_markup=InlineKeyboardMarkup(
 			[
-				[
 					InlineKeyboardButton(
 						"➕ Add me to your Group ➕", url=f"https://t.me/{USERNAME_BOT}?startgroup=true")
 				],
 				[
 					InlineKeyboardButton(
 						"Dev", url=f"https://t.me/{OWNER_NAME}")
-				]
 			]
 		))
