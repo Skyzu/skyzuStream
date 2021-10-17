@@ -13,10 +13,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>
 '''
 
-from lib.config import USERNAME_BOT
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram import Client, filters
-from lib.config import USERNAME_BOT, OWNER_NAME
+from lib.config import USERNAME_BOT
 
 
 HELP_PLAY = """**[HELP MESSAGE]**
@@ -59,10 +58,8 @@ HELP_STOP = """**[HELP MESSAGE]**
 **>> Note:** ```Replace chat title to stop channel stream```
 """
 
-BOKEP = "https://telegra.ph/file/3a32ff6848149c92001e2.mp4"
-START_MESSAGE = f"""<b>✨ **Welcome {message.from_user.mention()}** \n
-		💭 **I'm a video streamer bot, i can streaming video from youtube trough the telegram group video chat !**
-"""
+BOKEP = "https://telegra.ph/file/bb460f682dd16b4649c26.mp4"
+START_MESSAGE = """**Command help with description**"""
 
 
 @Client.on_callback_query(filters.regex(pattern=r"^(play|pause|resume|stop)$"))
@@ -78,15 +75,17 @@ async def callback(b, cb):
         await cb.message.edit(HELP_STOP)
 
 
-@Client.on_message(filters.command("start") & filters.private)
-async def start_(client: Client, message: Message):
-	await client.send_video(BOKEP, caption=START_MESSAGE, reply_markup=InlineKeyboardMarkup(
-			[
-					InlineKeyboardButton(
-						"➕ Add me to your Group ➕", url=f"https://t.me/{USERNAME_BOT}?startgroup=true")
-				],
-				[
-					InlineKeyboardButton(
-						"Dev", url=f"https://t.me/{OWNER_NAME}"),
-			]
-		))
+@Client.on_message(filters.command("start"))
+async def start(client, message):
+    coli = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("PLAY HELP", "play"),
+                InlineKeyboardButton("PAUSE HELP", "pause"),
+            ],
+            [ 
+               InlineKeyboardButton("RESUME HELP", "resume"),
+               InlineKeyboardButton("STOP HELP", "stop")],
+        ]
+    )
+    await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=coli)
