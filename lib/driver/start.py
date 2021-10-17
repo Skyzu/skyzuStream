@@ -78,8 +78,8 @@ async def callback(b, cb):
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start_(client: Client, message: Message):
-	await client.send_video(
-		f"""<b>✨ **Welcome {message.from_user.mention()}** \n
+	await client.send_video(BOKEP,
+		caption=f"""<b>✨ **Welcome {message.from_user.mention()}** \n
 		💭 **I'm a video streamer bot, i can streaming video from youtube trough the telegram group video chat !**
 		❔ **To know how to use me click** /help</b>""",
 		reply_markup=InlineKeyboardMarkup(
