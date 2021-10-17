@@ -14,9 +14,14 @@
             "required": true
         },
         "USERNAME_BOT": {
-            "description": "Fill woth your blt username without @",
+            "description": "Fill woth your bot username without @",
             "required": true,
             "value": "feritapibot"
+        },
+        "OWNER_NAME": {
+            "description": "Fill woth your username without @",
+            "required": true,
+            "value": "xflicks"
         },
         "API_ID": {
             "description": "APP ID from my.telegram.org",
