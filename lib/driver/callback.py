@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, Chat, CallbackQuery
 
 
-@Client.on_callback_query(filters.regex("start"))
+@Client.on_callback_query(filters.regex("cbstart"))
 async def cbstart(_, query: CallbackQuery):
     await query.edit_message_text("""**I'm Online and ready to streaming your video on your Voice Chat Group**""",
         reply_markup=InlineKeyboardMarkup(
