@@ -10,14 +10,14 @@ You can find how to use me on the button bellow.""",
             [ 
                 [
                     InlineKeyboardButton(
-                        "Help Play", callback_data="cbplay")
+                        "Help Play", callback_data="cbplay"),
                     InlineKeyboardButton(
                         "Help Pause​​", callback_data="cbpause"
                     ),
                  ],
                  [
                     InlineKeyboardButton(
-                        "Help Resume", calback_data="cbresume")
+                        "Help Resume", calback_data="cbresume"),
                     InlineKeyboardButton(
                         "Help Stop", callback_data="cbstop"
                     )
