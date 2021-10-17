@@ -3,23 +3,23 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 
 
 @Client.on_callback_query(filters.regex("cbhelp"))
-async def cbstart(_, query: CallbackQuery):
+async def cbhelp(_, query: CallbackQuery):
     await query.edit_message_text(f"""It os the help menu for streaming!
 You can find how to use me on the button bellow.""",
         reply_markup=InlineKeyboardMarkup(
             [ 
                 [
                     InlineKeyboardButton(
-                        "▶️ Play", callback_data="cbplay")
+                        "Help Play", callback_data="cbplay")
                     InlineKeyboardButton(
-                        "⏸️ Pause​​", callback_data="cbpause"
+                        "Help Pause​​", callback_data="cbpause"
                     ),
                  ],
                  [
                     InlineKeyboardButton(
-                        "◀️ Resume", calback_data="cbresume")
+                        "Help Resume", calback_data="cbresume")
                     InlineKeyboardButton(
-                        "⏹️ Stop", callback_data="cbstop"
+                        "Help Stop", callback_data="cbstop"
                     )
                  ]
              ]
