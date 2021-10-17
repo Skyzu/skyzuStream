@@ -4,8 +4,8 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 
 @Client.on_callback_query(filters.regex("cbhelp"))
 async def cbstart(_, query: CallbackQuery):
-    await query.edit_message_text(
-        f"""Help menu with description, you can tap on button for info!""",
+    await query.edit_message_text(f"""It os the help menu for streaming!
+You can find how to use me on the button bellow.""",
         reply_markup=InlineKeyboardMarkup(
             [ 
                 [
