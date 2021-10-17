@@ -59,7 +59,7 @@ HELP_STOP = """**[HELP MESSAGE]**
 """
 
 BOKEP = "https://telegra.ph/file/bb460f682dd16b4649c26.mp4"
-START_MESSAGE = """**Command help with description**"""
+START_MESSAGE = """**I'm Online and ready to streaming your video on your Voice Chat Group**"""
 
 
 @Client.on_callback_query(filters.regex(pattern=r"^(play|pause|resume|stop)$"))
@@ -80,12 +80,8 @@ async def start(client, message):
     coli = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("PLAY HELP", "play"),
-                InlineKeyboardButton("PAUSE HELP", "pause"),
-            ],
-            [ 
-               InlineKeyboardButton("RESUME HELP", "resume"),
-               InlineKeyboardButton("STOP HELP", "stop")],
+                InlineKeyboardButton("How to use ❔", callback_data="cbhelp"),
+            ]
         ]
     )
     await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=coli)
