@@ -76,7 +76,7 @@ async def play_video(client, message):
             ),
             stream_type=StreamType().live_stream
         )
-    elif replied.audio or replied.voice_note:
+    elif replied.audio or replied.voice:
         flags = " ".join(message.command[1:])
         if flags == "channel":
             chat_id = message.chat.title
