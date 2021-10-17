@@ -93,4 +93,4 @@ async def start_(client: Client, message: Message):
 						"Dev", url=f"https://t.me/{OWNER_NAME}")
 				]
 			]
-		)
+		))
