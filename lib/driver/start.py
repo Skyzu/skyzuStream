@@ -60,7 +60,9 @@ HELP_STOP = """**[HELP MESSAGE]**
 """
 
 BOKEP = "https://telegra.ph/file/3a32ff6848149c92001e2.mp4"
-START_MESSAGE = """**Command help with description**"""
+START_MESSAGE = f"""<b>✨ **Welcome {message.from_user.mention()}** \n
+		💭 **I'm a video streamer bot, i can streaming video from youtube trough the telegram group video chat !**
+"""
 
 
 @Client.on_callback_query(filters.regex(pattern=r"^(play|pause|resume|stop)$"))
@@ -78,17 +80,13 @@ async def callback(b, cb):
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start_(client: Client, message: Message):
-	await client.send_video(BOKEP,
-		caption=f"""<b>✨ **Welcome {message.from_user.mention()}** \n
-		💭 **I'm a video streamer bot, i can streaming video from youtube trough the telegram group video chat !**
-		❔ **To know how to use me click** /help</b>""",
-		reply_markup=InlineKeyboardMarkup(
+	await client.send_video(BOKEP, caption=START_MESSAGE, reply_markup=InlineKeyboardMarkup(
 			[
 					InlineKeyboardButton(
 						"➕ Add me to your Group ➕", url=f"https://t.me/{USERNAME_BOT}?startgroup=true")
 				],
 				[
 					InlineKeyboardButton(
-						"Dev", url=f"https://t.me/{OWNER_NAME}")
+						"Dev", url=f"https://t.me/{OWNER_NAME}"),
 			]
 		))
