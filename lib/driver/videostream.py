@@ -52,15 +52,18 @@ async def play_video(client, message):
             await msg.edit(f"**Error:** {e}")
             return False
         await msg.edit(f"**Streamed by: {user}**\n**Title:** ```{title}```")
-        await call_py.join_group_call(
-            chat_id,
-            AudioVideoPiped(
-                file,
-                MediumQualityAudio(),
-                MediumQualityVideo()
-            ),
-            stream_type=StreamType().live_stream
-        )
+        try:
+           await call_py.join_group_call(
+               chat_id,
+               AudioImagePiped(
+                   input_file,
+                   './etc/banner.png',
+                   video_parameters=MediumQualityVideo(),
+               ),
+               stream_type=StreamType().pulse_stream,
+           )
+         except NoActiveGroupCall:
+           await msg.edit("**Error:** No active group call, please open group call first")
     elif replied.video or replied.document:
         flags = " ".join(message.command[1:])
         chat_id = int(message.chat.title) if flags == "channel" else message.chat.id
@@ -85,15 +88,18 @@ async def play_video(client, message):
         msg = await message.reply("```Downloading from telegram...```")
         input_file = await client.download_media(replied)
         await msg.edit(f"**Streamed by: {user}**")
-        await call_py.join_group_call(
-            chat_id,
-            AudioImagePiped(
-                input_file,
-                './etc/banner.png',
-                video_parameters=MediumQualityVideo(),
-            ),
-            stream_type=StreamType().pulse_stream,
-        )
+        try:
+           await call_py.join_group_call(
+               chat_id,
+               AudioVideoPiped(
+                   file,
+                   MediumQualityAudio(),
+                   MediumQualityVideo()
+               ),
+               stream_type=StreamType().live_stream
+           )
+         except NoActiveGroupCall:
+           await msg.edit("**Error:** No active group call, please open group call first")
     else:
         await message.reply("```Please reply to video or video file to stream```")
 
