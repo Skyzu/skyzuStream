@@ -13,15 +13,19 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>
 """
 
-import asyncio
+mport asyncio
 import pafy
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch
 from lib.tg_stream import call_py
 from lib.helpers.filters import private_filters, public_filters
-from pytgcalls import StreamType, idle
-from pytgcalls.types.input_stream import AudioImagePiped, AudioVideoPiped
-from pytgcalls.types.input_stream.quality import MediumQualityVideo, MediumQualityAudio
+from pytgcalls import idle
+from pytgcalls import StreamType
+from pytgcalls.types.input_stream import AudioVideoPiped
+from pytgcalls.types.input_stream import AudioImagePiped
+from pytgcalls.types.input_stream.quality import MediumQualityAudio
+from pytgcalls.types.input_stream.quality import MediumQualityVideo
+from pytgcalls.exceptions import NoActiveGroupCall
 
 
 @Client.on_message(filters.command("play") & public_filters)
@@ -55,38 +59,20 @@ async def play_video(client, message):
         try:
            await call_py.join_group_call(
                chat_id,
-               AudioImagePiped(
-                   input_file,
-                   './etc/banner.png',
-                   video_parameters=MediumQualityVideo(),
+               AudioVideoPiped(
+                   file,
+                   MediumQualityAudio(),
+                   MediumQualityVideo()
                ),
-               stream_type=StreamType().pulse_stream,
+               stream_type=StreamType().live_stream
            )
-         except NoActiveGroupCall:
+        except NoActiveGroupCall:
            await msg.edit("**Error:** No active group call, please open group call first")
     elif replied.video or replied.document:
         flags = " ".join(message.command[1:])
         chat_id = int(message.chat.title) if flags == "channel" else message.chat.id
         msg = await message.reply("```Downloading from telegram...```")
         file = await client.download_media(replied)
-        await msg.edit(f"**Streamed by: {user}**")
-        await call_py.join_group_call(
-            chat_id,
-            AudioVideoPiped(
-                file,
-                MediumQualityAudio(),
-                MediumQualityVideo()
-            ),
-            stream_type=StreamType().live_stream
-        )
-    elif replied.audio or replied.voice:
-        flags = " ".join(message.command[1:])
-        if flags == "channel":
-            chat_id = message.chat.title
-        else:
-            chat_id = message.chat.id
-        msg = await message.reply("```Downloading from telegram...```")
-        input_file = await client.download_media(replied)
         await msg.edit(f"**Streamed by: {user}**")
         try:
            await call_py.join_group_call(
@@ -98,10 +84,28 @@ async def play_video(client, message):
                ),
                stream_type=StreamType().live_stream
            )
-         except NoActiveGroupCall:
+        except NoActiveGroupCall:
+           await msg.edit("**Error:** No active group call, please open group call first")
+    elif replied.audio:
+        flags = " ".join(message.command[1:])
+        chat_id = int(message.chat.title) if flags == "channel" else message.chat.id
+        msg = await message.reply("```Downloading from telegram...```")
+        input_file = await client.download_media(replied)
+        await msg.edit(f"**Streamed by: {user}**")
+        try:
+           await call_py.join_group_call(
+               chat_id,
+               AudioImagePiped(
+                   input_file,
+                   './etc/banner.png',
+                   video_parameters=MediumQualityVideo(),
+               ),
+               stream_type=StreamType().pulse_stream,
+           )
+        except NoActiveGroupCall:
            await msg.edit("**Error:** No active group call, please open group call first")
     else:
-        await message.reply("```Please reply to video or video file to stream```")
+        await message.reply("Error!")
 
 
 @call_py.on_stream_end()
