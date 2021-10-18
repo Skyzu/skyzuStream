@@ -18,8 +18,22 @@ from pyrogram.types import Message
 from pyrogram import Client, filters
 from lib.helpers.decorators import authorized_users_only
 from lib.tg_stream import call_py
+from lib.cache.admins import admins
 from lib.config import USERNAME_BOT, SUDO_USERS
 from pytgcalls.exceptions import GroupCallNotFound
+
+
+
+@Client.on_message(filters.command(["reload", f"reload@{USERNAME_BOT}"]))
+@authorized_users_only
+async def update_admin(client, message):
+    global admins
+    new_admins = []
+    new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
+    for u in new_ads:
+        new_admins.append(u.user.id)
+    admins[message.chat.id] = new_admins
+    await client.send_message(message.chat.id, "✅ Bot **reloaded correctly!**\n\n• The **Admin list** has been **updated.**")
 
 
 @Client.on_message(filters.command(["ping", "ping@{USERNAME_BOT}"]))
