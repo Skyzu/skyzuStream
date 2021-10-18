@@ -47,7 +47,7 @@ BOKEP = "https://telegra.ph/file/1e78b509a59fe6c04362a.mp4"
 START_MESSAGE = """**I'm Online and ready to streaming your video on your Voice Chat Group**"""
 
 
-@Client.on_message(filters.command("start"))
+@Client.on_message(filters.command(["start", f"start@{USERNAME_BOT}"]))
 async def start(client, message):
     coli = InlineKeyboardMarkup(
         [
@@ -59,7 +59,7 @@ async def start(client, message):
     await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=coli)
 
 
-@Client.on_message(filters.command(["uptime", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(filters.command(["uptime", f"uptime@{USERNAME_BOT}"]) & ~filters.edited)
 @sudo_users_only
 async def get_uptime(client: Client, message: Message):
     current_time = datetime.utcnow()
