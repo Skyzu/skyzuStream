@@ -58,7 +58,7 @@ async def start(client, message):
     await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=coli)
 
 
-@Client.on_message(command(["uptime", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(filters.command(["uptime", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
 @sudo_users_only
 async def get_uptime(client: Client, message: Message):
     current_time = datetime.utcnow()
