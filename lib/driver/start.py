@@ -1,4 +1,4 @@
-'''
+"""
 tg-stream-video, An Telegram Bot Project
 Copyright (c) 2021 GalihMrd <https://github.com/Imszy17>
 This program is free software: you can redistribute it and/or modify
@@ -11,14 +11,14 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>
-'''
+"""
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram import Client, filters
 from lib.config import USERNAME_BOT
 
 
-BOKEP = "https://telegra.ph/file/bb460f682dd16b4649c26.mp4"
+BOKEP = "https://telegra.ph/file/1e78b509a59fe6c04362a.mp4"
 START_MESSAGE = """**I'm Online and ready to streaming your video on your Voice Chat Group**"""
 
 
