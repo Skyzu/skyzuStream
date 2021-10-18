@@ -18,61 +18,8 @@ from pyrogram import Client, filters
 from lib.config import USERNAME_BOT
 
 
-HELP_PLAY = """**[HELP MESSAGE]**
-**>> Description:** ```to streaming video in video chat group/channel```
-
-**[GUIDE]**
-**>> Group:** ```/play [reply to video/audio/give youtube url]```
-**>> Channel:** ```/play [channel] [reply to video/audio/give youtube url]```
-
-**>> Note:** ```To stream in channel stream you must replace chat title to Channel ID```
-"""
-
-HELP_PAUSE = """**[HELP MESSAGE]**
-**>> Description:** ```To pause stream in video chat group/channel```
-
-**[GUIDE]**
-**>> Group:** ```/pause```
-**>> Channel:** ```/pause [channel]```
-
-**>> Note:** ```Replace chat title to pause channel stream```
-"""
-
-HELP_RESUME = """**[HELP MESSAGE]**
-**>> Description:** ```To resume stream in video chat grouo/channel```
-
-**[GUIDE]**
-**>> Group:** ```/resume```
-**>> Channel:** ```/resume [channel]```
-
-**>> Note:** ```Replace chat title to resume channel stream```
-"""
-
-HELP_STOP = """**[HELP MESSAGE]**
-**>> Description:** ```To stop stream in video chat grouo/channel```
-
-**[GUIDE]**
-**>> Group:** ```/stop```
-**>> Channel:** ```/stop [channel]```
-
-**>> Note:** ```Replace chat title to stop channel stream```
-"""
-
 BOKEP = "https://telegra.ph/file/bb460f682dd16b4649c26.mp4"
 START_MESSAGE = """**I'm Online and ready to streaming your video on your Voice Chat Group**"""
-
-
-@Client.on_callback_query(filters.regex(pattern=r"^(play|pause|resume|stop)$"))
-async def callback(b, cb):
-    help_type = cb.matches[0].group(1)
-    if help_type == "play":
-        await cb.message.edit(HELP_PLAY)
-    elif help_type == "pause":
-        await cb.message.edit(HELP_PAUSE)
-    elif help_type == "resume":
-        await cb.message.edit(HELP_RESUME)
-    elif help_type == "stop":
-        await cb.message.edit(HELP_STOP)
 
 
 @Client.on_message(filters.command("start"))
