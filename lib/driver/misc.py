@@ -90,14 +90,14 @@ async def resume(client, message):
 @authorized_users_only
 async def stopped(client, message):
     query = " ".join(message.command[1:])
-        if query == "channel":
-            chat_id = int(message.chat.title)
-            type = "Channel"
-        else:
-            chat_id = message.chat.id
-            type = "Group"
-        try:
-            await call_py.leave_group_call(chat_id)
-            await message.reply(f"**{type} stream stopped!**")
-        except GroupCallNotFound:
-            await message.reply("**Error:** GroupCall not found")
+    if query == "channel":
+        chat_id = int(message.chat.title)
+        type = "Channel"
+    else:
+        chat_id = message.chat.id
+        type = "Group"
+    try:
+        await call_py.leave_group_call(chat_id)
+        await message.reply(f"**{type} stream stopped!**")
+    except GroupCallNotFound:
+        await message.reply("**Error:** GroupCall not found")
