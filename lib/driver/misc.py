@@ -90,7 +90,6 @@ async def resume(client, message):
 @authorized_users_only
 async def stopped(client, message):
     query = " ".join(message.command[1:])
-    else:
         if query == "channel":
             chat_id = int(message.chat.title)
             type = "Channel"
