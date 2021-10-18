@@ -3,7 +3,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 
 
 @Client.on_callback_query(filters.regex("cbstart"))
-async def cbstart(message: Message, query: CallbackQuery):
+async def cbstart(_, query: CallbackQuery):
     await query.edit_message_text(f"""👋🏻 **Hi {message.from_user.mention} !**
 **I'm online and ready for playing video.**
 **For more information, hit the » 📚 `Command` bellow**""",
