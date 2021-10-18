@@ -17,12 +17,13 @@ import io
 import sys
 import traceback
 import speedtest
-from lib.config import SUDO_USERS
+from lib.helpers.decorators import authorized_users_only, sudo_users_only
 from pyrogram import Client, filters
 from pyrogram.errors import RPCError
 
 
-@Client.on_message(filters.command("eval") & filters.user(SUDO_USERS))
+@Client.on_message(filters.command("uptime"))
+@sudo_users_only
 async def eval(client, message):
     status_message = await message.reply_text("Processing ...")
     cmd = message.text.split(" ", maxsplit=1)[1]
@@ -81,8 +82,8 @@ async def aexec(code, client, message):
     return await locals()["__aexec"](client, message)
 
 
-
-@Client.on_message(filters.command("speedtest") & filters.user(SUDO_USERS))
+Client.on_message(filters.command("speedtest"))
+@sudo_users_only
 def speedtest_(_,message):
     speed = speedtest.Speedtest()
     speed.get_best_server()
@@ -93,7 +94,8 @@ def speedtest_(_,message):
     message.reply_photo(speedtest_image)
 
 
-@Client.on_message(filters.command("leave") & filters.user(SUDO_USERS))
+@Client.on_message(filters.command("leave"))
+@sudo_users_only
 async def leave(client, message):
     if len(message.command) == 1:
         try:
@@ -109,6 +111,7 @@ async def leave(client, message):
 
 
 @Client.on_message(filters.command("invitelink"))
+@authorized_users_only
 async def invitelink(client, message):
     chat_id = message.chat.id
     try:
