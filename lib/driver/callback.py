@@ -13,10 +13,10 @@ async def cbstart(_, query: CallbackQuery):
                    InlineKeyboardButton(
                        "📚 Command", callback_data="cbhelp"
                    )
-                 ]
+                ]
              ]
-        ),
-    )
+          ),
+       )
 
 
 @Client.on_callback_query(filters.regex("cbhelp"))
