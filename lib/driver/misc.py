@@ -1,4 +1,4 @@
-'''
+"""
 tg-stream-video, An Telegram Bot Project
 Copyright (c) 2021 GalihMrd <https://github.com/Imszy17>
 This program is free software: you can redistribute it and/or modify
@@ -11,11 +11,12 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>
-'''
+"""
 
 from datetime import datetime
 from pyrogram.types import Message
 from pyrogram import Client, filters
+from lib.helpers.decorators import authorized_users_only
 from lib.tg_stream import call_py
 from lib.config import USERNAME_BOT, SUDO_USERS
 from pytgcalls.exceptions import GroupCallNotFound
@@ -38,6 +39,7 @@ async def repo(client, message):
 
 
 @Client.on_message(filters.command("pause"))
+@authorized_users_only
 async def pause(client, message):
     query = " ".join(message.command[1:])
     if query == "channel":
@@ -54,6 +56,7 @@ async def pause(client, message):
 
 
 @Client.on_message(filters.command("resume"))
+@authorized_users_only
 async def resume(client, message):
     query = " ".join(message.command[1:])
     if query == "channel":
@@ -70,12 +73,9 @@ async def resume(client, message):
 
 
 @Client.on_message(filters.command("stop"))
+@authorized_users_only
 async def stopped(client, message):
     query = " ".join(message.command[1:])
-    user_id = message.from_user.id
-    if user_id != SUDO_USERS:
-        await message.reply("**Warning:** Only sudo user can be stopped stream")
-        return False
     else:
         if query == "channel":
             chat_id = int(message.chat.title)
