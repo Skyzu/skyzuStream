@@ -4,12 +4,14 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 
 @Client.on_callback_query(filters.regex("cbstart"))
 async def cbstart(_, query: CallbackQuery):
-    await query.edit_message_text("""**I'm Online and ready to streaming your video on your Voice Chat Group**""",
+    await query.edit_message_text(f"""👋🏻 **Hi {message.from_user.mention} !**
+**I'm online and ready for playing video.**
+**For more information, hit the » 📚 `Command` bellow**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                    InlineKeyboardButton(
-                       "How to use ❔", callback_data="cbhelp"
+                       "📚 Command", callback_data="cbhelp"
                    )
                  ]
              ]
@@ -52,7 +54,9 @@ async def cbplay(_, query: CallbackQuery):
     await query.edit_message_text("""**[HELP MESSAGE]**
 
 **>> Description:** ```to streaming video in video chat group/channel```
+
 **[GUIDE]**
+
 **>> Group:** ```/play [reply to video/audio/give youtube url]```
 **>> Channel:** ```/play [channel] [reply to video/audio/give youtube url]```
 
@@ -98,7 +102,9 @@ async def cbresume(_, query: CallbackQuery):
     await query.edit_message_text("""**[HELP MESSAGE]**
 
 **>> Description:** ```To resume stream in video chat grouo/channel```
+
 **[GUIDE]**
+
 **>> Group:** ```/resume```
 **>> Channel:** ```/resume [channel]```
 
@@ -120,7 +126,9 @@ async def cbstop(_, query: CallbackQuery):
     await query.edit_message_text("""**[HELP MESSAGE]**
 
 **>> Description:** ```To stop stream in video chat grouo/channel```
+
 **[GUIDE]**
+
 **>> Group:** ```/stop```
 **>> Channel:** ```/stop [channel]```
 
