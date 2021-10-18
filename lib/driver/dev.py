@@ -22,10 +22,15 @@ from pyrogram import Client, filters
 from pyrogram.errors import RPCError
 
 
-@Client.on_message(filters.command("uptime"))
+@Client.on_message(filters.command("eval"))
 @sudo_users_only
 async def eval(client, message):
+    kontolkecil = get_text(message)
     status_message = await message.reply_text("Processing ...")
+    if not kontolkecil:
+        await status_message.edit("Invalid Command Syntax!")
+        return
+
     cmd = message.text.split(" ", maxsplit=1)[1]
 
     reply_to_ = message
