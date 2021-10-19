@@ -19,6 +19,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram import Client, filters
 from lib.config import USERNAME_BOT
 from lib.helpers.decorators import sudo_users_only
+from lib.helpers.filters import command
 
 
 START_TIME = datetime.utcnow()
@@ -44,19 +45,46 @@ async def _human_time_duration(seconds):
 
 
 BOKEP = "https://telegra.ph/file/1e78b509a59fe6c04362a.mp4"
-START_MESSAGE = """**I'm Online and ready to streaming your video on your Voice Chat Group**"""
+START_MESSAGE = f"""✨ **Welcome {message.from_user.mention} !**
+
+❍ I'm online and ready for playing video on your Group video chat.
+
+❍ To see all my **feature list and the information**, Click on the » 📚 **Commands button** below
+"""
+START_EWE = f"""✨ **Hello {message.from_user.mention} !**
+
+❍ I'm online and ready for playing video on your Group video chat.
+
+❍ To see all my **feature list and the information**, Click on the » ❓ **Basic Guide button** below
+"""
 
 
-@Client.on_message(filters.command(["start", f"start@{USERNAME_BOT}"]))
-async def start(client, message):
+@Client.on_message(
+    command(["start", f"start@{USERNAME_BOT}"]) & filters.private & ~filters.edited
+)
+async def start_(client, message):
     coli = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("How to use ❔", callback_data="cbhelp"),
+                InlineKeyboardButton("📚 Commands", callback_data="cbcmds"),
             ]
         ]
     )
     await client.send_video(message.chat.id, BOKEP, caption=START_MESSAGE, reply_markup=coli)
+
+
+@Client.on_message(
+    command(["start", f"start@{USERNAME_BOT}"]) & filters.group & ~filters.edited
+)
+async def start(client, message):
+    asu = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("❓ Basic Guide", callback_data="cbhelp"),
+            ]
+        ]
+    )
+    await client.send_video(message.chat.id, BOKEP, caption=START_EWE, reply_markup=asu)
 
 
 @Client.on_message(filters.command(["uptime", f"uptime@{USERNAME_BOT}"]) & ~filters.edited)
