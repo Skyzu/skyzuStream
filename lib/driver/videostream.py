@@ -26,7 +26,7 @@ from pytgcalls.types.input_stream.quality import MediumQualityVideo, MediumQuali
 from pytgcalls.exceptions import NoActiveGroupCall
 
 
-@Client.on_message(filters.command("play") & public_filters)
+@Client.on_message(filters.command("vplay") & public_filters)
 async def play_video(client, message):
     flags = " ".join(message.command[1:])
     replied = message.reply_to_message
