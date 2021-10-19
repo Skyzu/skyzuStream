@@ -4,14 +4,35 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 
 @Client.on_callback_query(filters.regex("cbstart"))
 async def cbstart(_, query: CallbackQuery):
-    await query.edit_message_text(f"""👋🏻 **Hi [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
-**I'm online and ready for playing video.**
-**For more information, hit the » 📚 `Command` bellow**""",
+    await query.edit_message_text(f"""✨ **Hello [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
+
+❍ I'm online and ready for playing video on your Group video chat.
+
+❍ To see all my **feature list and the information**, Click on the » ❓ **Basic Guide button** below""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                    InlineKeyboardButton(
-                       "📚 Command", callback_data="cbhelp"
+                       "❓ Basic Guide", callback_data="cbhelp"
+                   )
+                ]
+             ]
+          ),
+       )
+
+
+@Client.on_callback_query(filters.regex("cbhome"))
+async def cbstart(_, query: CallbackQuery):
+    await query.edit_message_text(f"""✨ **Welcome [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
+
+❍ I'm online and ready for playing video on your Group video chat.
+
+❍ To see all my **feature list and the information**, Click on the » 📚 **Commands button** below""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                   InlineKeyboardButton(
+                       "📚 Commands", callback_data="cbhelp"
                    )
                 ]
              ]
@@ -42,6 +63,35 @@ You can find how to use me on the button bellow.""",
                  [
                     InlineKeyboardButton(
                         "Home", callback_data="cbstart"
+                    )
+                 ]
+             ]
+         ),
+     )
+
+@Client.on_callback_query(filters.regex("cbcmds"))
+async def cbstart(_, query: CallbackQuery):
+    await query.edit_message_text(f"""It os the help menu for streaming!
+You can find how to use me on the button bellow.""",
+        reply_markup=InlineKeyboardMarkup(
+            [ 
+                [
+                    InlineKeyboardButton(
+                        "Help Play", callback_data="cbplay"),
+                    InlineKeyboardButton(
+                        "Help Pause​​", callback_data="cbpause"
+                    ),
+                 ],
+                 [
+                    InlineKeyboardButton(
+                        "Help Resume", callback_data="cbresume"),
+                    InlineKeyboardButton(
+                        "Help Stop", callback_data="cbstop"
+                    )
+                 ],
+                 [
+                    InlineKeyboardButton(
+                        "Home", callback_data="cbhome"
                     )
                  ]
              ]
