@@ -1,4 +1,4 @@
-# [VideoStream](https://t.me/feritapibot)
+# [VideoStream](https://t.me/skyzuStream)
 
 ![logo](https://telegra.ph/file/824cba85b5b820fcd7dcd.jpg)
 ## Deploy
