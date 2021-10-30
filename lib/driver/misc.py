@@ -47,8 +47,8 @@ async def ping_(client: Client, message: Message):
 
 @Client.on_message(filters.command(["repo", "repo@{USERNAME_BOT}"]))
 async def repo(client, message):
-    repo = "https://github.com/FeriEXP/VideoStream"
-    license = "https://t.me/AnosSupport"
+    repo = "https://github.com/Skyzu/skyzuStream"
+    license = "https://t.me/skyzusupport"
     await message.reply(f"**Source code:** [Here]({repo})\n**SUPPORT:** [JOIN SUPPORT]({license})")
 
 
